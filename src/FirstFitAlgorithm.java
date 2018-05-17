@@ -4,13 +4,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class NextFitAlgorithm implements BPPAlgorithm {
+public class FirstFitAlgorithm implements BPPAlgorithm {
     private List<Container> containers;
     private List<Box> boxes;
 
     private int containerCount = 138;
 
-    NextFitAlgorithm(List<Container> containers, List<Box> boxes) {
+    FirstFitAlgorithm(List<Container> containers, List<Box> boxes) {
         this.containers = containers;
         this.boxes = boxes;
     }
@@ -19,13 +19,12 @@ public class NextFitAlgorithm implements BPPAlgorithm {
         List<Container> solution = Stream.generate(Container::new).limit(this.containerCount).collect(Collectors.toList());
         int cursor = 0;
         for (Box b : this.boxes) {
-            if (solution.get(cursor).getPercentageFilled() + b.getHeight() > 100) {
+            while (solution.get(cursor).getPercentageFilled() + b.getHeight() > 100) {
                 cursor += 1;
-                if (cursor >= this.containerCount) {
-                    return solution;
-                }
+                System.out.println("test" + cursor);
             }
             solution.get(cursor).addBox(b);
+            cursor = 0;
         }
         return solution;
     }
