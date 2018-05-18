@@ -8,7 +8,7 @@ public class NextFitAlgorithm implements BPPAlgorithm {
     private List<Container> containers;
     private List<Box> boxes;
 
-    private int containerCount = 138;
+    private int containerCount = 1;
 
     NextFitAlgorithm(List<Container> containers, List<Box> boxes) {
         this.containers = containers;
@@ -20,6 +20,8 @@ public class NextFitAlgorithm implements BPPAlgorithm {
         int cursor = 0;
         for (Box b : this.boxes) {
             if (solution.get(cursor).getPercentageFilled() + b.getHeight() > 100) {
+                solution.add(new Container());
+                this.containerCount+=1;
                 cursor += 1;
                 if (cursor >= this.containerCount) {
                     return solution;
