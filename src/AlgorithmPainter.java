@@ -26,7 +26,7 @@ public class AlgorithmPainter extends JPanel {
             g.setColor(Color.RED);
             g.fillRect(9 + (20 * x), 11 + (80 * y), 16, 68);
             g.setColor(Color.GREEN);
-            g.fillRect(9 + (20 * x), 11 + (79 * y), 16, (int) ((float) this.containers.get(i).getPercentageFilled() / 100 * 70));
+            g.fillRect(9 + (20 * x), 11 + (80 * y), 16, (int) ((float) this.containers.get(i).getPercentageFilled() / 100 * 68));
             g.setColor(Color.BLACK);
             g.drawString("" + this.containers.get(i).getPercentageFilled(), 10 + (20 * x), 8 + (80 * y));
 
@@ -55,7 +55,7 @@ public class AlgorithmPainter extends JPanel {
         y = 0;
         g.setFont(new Font("Arial", Font.PLAIN, 11));
         for (int i = 0; i < this.boxes.size(); i++) {
-            g.drawString("" + i + ": " + this.boxes.get(i).getHeight(), 500 + x * 60, 32 + y * 20);
+            g.drawString("" + (i + 1) + ": " + this.boxes.get(i).getHeight(), 500 + x * 60, 32 + y * 20);
             y += 1;
             if (y > 22) {
                 y = 0;
