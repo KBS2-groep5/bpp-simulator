@@ -22,6 +22,7 @@ public class NextFitAlgorithm implements BPPAlgorithm {
             if (solution.get(cursor).getPercentageFilled() + b.getHeight() > 100) {
                 solution.add(new Container());
                 this.containerCount+=1;
+                getContainerCount();
                 cursor += 1;
                 if (cursor >= this.containerCount) {
                     return solution;

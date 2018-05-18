@@ -44,7 +44,7 @@ class AlgorithmGUI extends JFrame implements ActionListener {
         algorithmSelectorLabel.setBounds(900, 20, 120, 20);
         add(algorithmSelectorLabel);
 
-        algorithmSelector = new JComboBox<>(new String[]{"NextFit"});
+        algorithmSelector = new JComboBox<>(new String[]{"NextFit","FirstFit","BestFit"});
         algorithmSelector.setBounds(1040, 20, 110, 20);
         algorithmSelector.addActionListener(this);
         add(algorithmSelector);
@@ -53,11 +53,9 @@ class AlgorithmGUI extends JFrame implements ActionListener {
         containerCountLabel.setBounds(900, 50, 120, 20);
         add(containerCountLabel);
 
-        containerCountInput = new JTextField();
-        containerCountInput.setBounds(1040, 50, 110, 20);
-        containerCountInput.setText("12");
-        add(containerCountInput);
-        containerCountInput.addActionListener(this);
+        JLabel containerCountNumber = new JLabel(String.valueOf(this.algorithm.getContainerCount()));
+        containerCountNumber.setBounds(1040, 50, 110, 20);
+        add(containerCountNumber);
 
         JLabel boxCountLabel = new JLabel("Aantal pakketjes:");
         boxCountLabel.setBounds(900, 80, 120, 20);
@@ -143,18 +141,7 @@ class AlgorithmGUI extends JFrame implements ActionListener {
         int containerCount = 1;
         int boxCount = 1;
         try {
-            containerCount = Integer.parseInt(containerCountInput.getText());
             boxCount = Integer.parseInt(boxCountInput.getText());
-            if (containerCount > 138) {
-                containerCount = 138;
-                JOptionPane.showMessageDialog(null, "Hee dikkie het maximum is 138");
-                containerCountInput.setText("" + 138);
-            }
-            if (containerCount < 0) {
-                containerCount = 0;
-                JOptionPane.showMessageDialog(null, "Hee dikkie het minimum is 0");
-                containerCountInput.setText("" + 0);
-            }
             if (boxCount > 138) {
                 boxCount = 138;
                 JOptionPane.showMessageDialog(null, "Hee dikkie het maximum is 138");
@@ -167,14 +154,6 @@ class AlgorithmGUI extends JFrame implements ActionListener {
             }
         } catch (Exception exc) { /* why do we have to catch this shit */ }
 
-        if (this.algorithm.getContainerCount() != containerCount) {
-            List<Container> containers = new ArrayList<>();
-            for (int i = 0; i < containerCount; i++) {
-                containers.add(new Container());
-            }
-            this.algorithm.setContainers(containers);
-            this.panel.setContainers(containers);
-        }
 
         if (this.algorithm.getBoxCount() != boxCount) {
             List<Box> boxes = new ArrayList<>();
