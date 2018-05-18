@@ -26,7 +26,7 @@ public class AlgorithmPainter extends JPanel {
             g.setColor(Color.RED);
             g.fillRect(9 + (20 * x), 11 + (80 * y), 16, 68);
             g.setColor(Color.GREEN);
-            g.fillRect(x + (20 * x), 11 + (80 * y), 16, (int) ((float) this.containers.get(i).getPercentageFilled() / 100 * 70));
+            g.fillRect(9 + (20 * x), 11 + (79 * y), 16, (int) ((float) this.containers.get(i).getPercentageFilled() / 100 * 70));
             g.setColor(Color.BLACK);
             g.drawString("" + this.containers.get(i).getPercentageFilled(), 10 + (20 * x), 8 + (80 * y));
 

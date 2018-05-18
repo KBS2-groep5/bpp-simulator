@@ -55,7 +55,7 @@ class AlgorithmGUI extends JFrame implements ActionListener {
 
         containerCountInput = new JTextField();
         containerCountInput.setBounds(1040, 50, 110, 20);
-        containerCountInput.setText("138");
+        containerCountInput.setText("12");
         add(containerCountInput);
         containerCountInput.addActionListener(this);
 
