@@ -44,7 +44,7 @@ class AlgorithmGUI extends JFrame implements ActionListener {
         algorithmSelectorLabel.setBounds(900, 20, 120, 20);
         add(algorithmSelectorLabel);
 
-        algorithmSelector = new JComboBox<>(new String[]{"NextFit","FirstFit","BestFit"});
+        algorithmSelector = new JComboBox<>(new String[]{"NextFit","FirstFit","BestFit","KorfBinCompletion"});
         algorithmSelector.setBounds(1040, 20, 110, 20);
         algorithmSelector.addActionListener(this);
         add(algorithmSelector);
