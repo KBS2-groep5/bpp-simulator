@@ -7,6 +7,11 @@ import java.util.stream.Stream;
 public class BestFitAlgorithm implements BPPAlgorithm {
     private List<Container> containers;
     private List<Box> boxes;
+    private long solveTime = 0;
+
+    static final String NAME = "Bestfit";
+
+
 
     private int containerCount = 1;
 
@@ -19,6 +24,8 @@ public class BestFitAlgorithm implements BPPAlgorithm {
         List<Container> solution = Stream.generate(Container::new).limit(this.containerCount).collect(Collectors.toList());
         int cursor = 0;
         int t = 0;
+        long startTime = System.nanoTime();
+
         for (Box b : this.boxes) {
             int h = 100;
             int g = 0;
@@ -35,10 +42,10 @@ public class BestFitAlgorithm implements BPPAlgorithm {
                 t = cursor;
             }
             solution.get(t).addBox(b);
-            System.out.println(solution);
             cursor = 0;
             t = 0;
         }
+        this.solveTime = System.nanoTime() - startTime;
         return solution;
     }
 
@@ -64,5 +71,8 @@ public class BestFitAlgorithm implements BPPAlgorithm {
 
     public int getBoxCount() {
         return this.boxes.size();
+    }
+    public long getSolveTime() {
+        return solveTime;
     }
 }

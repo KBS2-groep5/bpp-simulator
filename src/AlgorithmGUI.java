@@ -44,7 +44,7 @@ class AlgorithmGUI extends JFrame implements ActionListener {
         algorithmSelectorLabel.setBounds(900, 20, 120, 20);
         add(algorithmSelectorLabel);
 
-        algorithmSelector = new JComboBox<>(new String[]{"NextFit","FirstFit","BestFit"});
+        algorithmSelector = new JComboBox<>(new String[]{"Nextfit","Firstfit","Bestfit"});
         algorithmSelector.setBounds(1040, 20, 110, 20);
         algorithmSelector.addActionListener(this);
         add(algorithmSelector);
@@ -112,9 +112,10 @@ class AlgorithmGUI extends JFrame implements ActionListener {
         timeLabel.setBounds(900, 200, 120, 20);
         add(timeLabel);
 
-        timeDisplay = new JLabel("0 μs");
+        timeDisplay = new JLabel(BPPTimer.getHumanReadableAverageTime(this.algorithm));
         timeDisplay.setBounds(1040, 200, 120, 20);
         add(timeDisplay);
+
 
         setVisible(true);
     }
@@ -138,7 +139,6 @@ class AlgorithmGUI extends JFrame implements ActionListener {
 
         this.cursorDisplay.setText("" + this.cursor);
 
-        int containerCount = 1;
         int boxCount = 1;
         try {
             boxCount = Integer.parseInt(boxCountInput.getText());
@@ -164,6 +164,33 @@ class AlgorithmGUI extends JFrame implements ActionListener {
             this.algorithm.setBoxes(boxes);
             this.panel.setBoxes(boxes);
         }
+
+        if(e.getSource() == algorithmSelector) {
+            @SuppressWarnings("unchecked")
+            JComboBox<String> source2 = (JComboBox<String>) e.getSource();
+            String selected = (String) source2.getSelectedItem();
+            if(selected == null) return;
+
+            if(selected.equals(NextFitAlgorithm.NAME)) {
+                List<Box> boxes = this.algorithm.getBoxes();
+                List<Container> containers = this.algorithm.getContainers();
+                this.algorithm = new NextFitAlgorithm(containers, boxes);
+            }
+            if(selected.equals(FirstFitAlgorithm.NAME)) {
+                List<Box> boxes = this.algorithm.getBoxes();
+                List<Container> containers = this.algorithm.getContainers();
+                this.algorithm = new FirstFitAlgorithm(containers,boxes);
+            }
+            if(selected.equals(BestFitAlgorithm.NAME)) {
+                List<Box> boxes = this.algorithm.getBoxes();
+                List<Container> containers = this.algorithm.getContainers();
+                this.algorithm = new BestFitAlgorithm(containers,boxes);
+            }
+
+        }
+
+        this.timeDisplay.setText(BPPTimer.getHumanReadableAverageTime(this.algorithm));
+
 
         repaint();
     }
