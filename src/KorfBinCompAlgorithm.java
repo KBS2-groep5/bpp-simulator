@@ -34,6 +34,8 @@ public class KorfBinCompAlgorithm implements BPPAlgorithm {
         //Order boxes by size.
         Collections.sort(boxes,(a,b) -> b.compareTo(a));
 
+        System.out.println("boxes sorted:" + boxes);
+
 
         // Innitial run of Best Fit as starting solution to be optimized.
         this.algorithmCall = new BestFitAlgorithm(this.containers,this.boxes);
@@ -42,7 +44,10 @@ public class KorfBinCompAlgorithm implements BPPAlgorithm {
 
         //Again to get a duplicate which i can safely chop up boxes in.
         this.optimalSolution = new BestFitAlgorithm(this.containers,this.boxes);
-        optimalArray= optimalSolution.getContainers();
+        optimalArray = optimalSolution.getContainers();
+        optimalContainers = optimalArray.size();
+        System.out.println(" optimalArray: " + optimalArray); //TODO: remove this check
+        System.out.println("optimalcontainers: " + optimalContainers); //TODO: remove this check
 
         //Determine optimal containers to achieve with algorithm.(Boxes can be changed in height here)
         for(int iSta = 0; iSta < optimalContainers-1; iSta++ ) {
@@ -102,7 +107,7 @@ public class KorfBinCompAlgorithm implements BPPAlgorithm {
 
 
         this.optimalContainers = optimalArray.size();
-        System.out.println("optimalcontainers" + optimalContainers); //TODO: remove this check
+
 
         //Repetitive Best Fit runs to get optimal solution.
 

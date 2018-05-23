@@ -19,6 +19,6 @@ public class Box {
     }
 
     public int compareTo(Box b){
-        return this.height < b.height ? 1 : -1;
+        return this.height > b.height ? 1 : -1;
     }
 }
