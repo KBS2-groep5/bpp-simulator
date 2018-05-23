@@ -34,7 +34,6 @@ public class AlgorithmPainter extends JPanel {
             for (Box b : this.containers.get(i).getBoxes()) {
                 offsetTop += (int) ((float) b.getHeight() / 100 * 70);
                 g.drawLine(8 + (20 * x), 10 + (80 * y) + offsetTop, 25 + (20 * x), 10 + (80 * y) + offsetTop);
-                System.out.println(offsetTop);
             }
 
             x += 1;

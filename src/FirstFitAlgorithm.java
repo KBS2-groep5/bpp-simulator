@@ -8,7 +8,7 @@ public class FirstFitAlgorithm implements BPPAlgorithm {
     private List<Container> containers;
     private List<Box> boxes;
 
-    private int containerCount = 138;
+    private int containerCount = 1;
     private long solveTime = 0;
     static final String NAME = "Firstfit";
 

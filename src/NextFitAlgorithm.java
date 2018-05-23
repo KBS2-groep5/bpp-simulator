@@ -24,7 +24,6 @@ public class NextFitAlgorithm implements BPPAlgorithm {
         List<Container> solution = Stream.generate(Container::new).limit(this.containerCount).collect(Collectors.toList());
         int cursor = 0;
         long startTime = System.nanoTime();
-
         for (Box b : this.boxes) {
             if (solution.get(cursor).getPercentageFilled() + b.getHeight() > 100) {
                 solution.add(new Container());
@@ -63,6 +62,7 @@ public class NextFitAlgorithm implements BPPAlgorithm {
     public int getBoxCount() {
         return this.boxes.size();
     }
+
     public long getSolveTime() {
         return solveTime;
     }

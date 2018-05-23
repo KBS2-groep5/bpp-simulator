@@ -39,6 +39,7 @@ public class BestFitAlgorithm implements BPPAlgorithm {
             }
             if (h == 100){
                 solution.add(new Container());
+                this.containerCount+=1;
                 t = cursor;
             }
             solution.get(t).addBox(b);
@@ -66,7 +67,7 @@ public class BestFitAlgorithm implements BPPAlgorithm {
     }
 
     public int getContainerCount() {
-        return this.containers.size();
+        return this.containerCount;
     }
 
     public int getBoxCount() {
