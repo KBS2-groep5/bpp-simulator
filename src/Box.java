@@ -17,4 +17,8 @@ public class Box {
     public String toString() {
         return "Box{" + "height=" + height + '}';
     }
+
+    public int compareTo(Box b){
+        return this.height < b.height ? 1 : -1;
+    }
 }

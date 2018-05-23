@@ -12,6 +12,8 @@ class Container {
         this.boxes.add(box);
     }
 
+    void removeBox(Box box){this.boxes.remove(box);}
+
     List<Box> getBoxes() {
         return this.boxes;
     }
