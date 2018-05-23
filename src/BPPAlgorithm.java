@@ -14,4 +14,6 @@ public interface BPPAlgorithm {
     int getContainerCount();
 
     int getBoxCount();
+
+    long getSolveTime();
 }
