@@ -193,6 +193,11 @@ class AlgorithmGUI extends JFrame implements ActionListener {
                 this.panel.setContainers(containers);
                 this.algorithm = new BestFitAlgorithm(containers,boxes);
             }
+            if(selected.equals(KorfBinCompAlgorithm.NAME)) {
+                List<Box> boxes = this.algorithm.getBoxes();
+                List<Container> containers = this.algorithm.getContainers();
+                this.algorithm = new KorfBinCompAlgorithm(containers,boxes);
+            }
 
         }
 
