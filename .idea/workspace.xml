@@ -133,6 +133,11 @@
     </findStrings>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="marijnkoel" />
+      </list>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GradleLocalSettings">
@@ -360,7 +365,7 @@
       <workItem from="1526562117865" duration="17100000" />
       <workItem from="1526629566376" duration="294000" />
       <workItem from="1526629867107" duration="27870000" />
-      <workItem from="1527094754587" duration="489000" />
+      <workItem from="1527094754587" duration="607000" />
     </task>
     <task id="LOCAL-00001" summary="GODVERDOMMMMMMEEEEE">
       <created>1527094915781</created>
@@ -376,11 +381,18 @@
       <option name="project" value="LOCAL" />
       <updated>1527095012265</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="GODVERDOMMMMMMEEEEE">
+      <created>1527095285445</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1527095285445</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="59405000" />
+    <option name="totallyTimeSpent" value="59523000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="731" extended-state="6" />
