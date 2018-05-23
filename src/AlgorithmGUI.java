@@ -12,7 +12,6 @@ class AlgorithmGUI extends JFrame implements ActionListener {
     private int cursor = 0;
 
     private AlgorithmPainter panel;
-    private JTextField containerCountInput;
     private JTextField boxCountInput;
     private JButton previousButton;
     private JButton nextButton;
@@ -45,7 +44,7 @@ class AlgorithmGUI extends JFrame implements ActionListener {
         algorithmSelectorLabel.setBounds(900, 20, 120, 20);
         add(algorithmSelectorLabel);
 
-        algorithmSelector = new JComboBox<>(new String[]{"Nextfit","Firstfit","Bestfit"});
+        algorithmSelector = new JComboBox<>(new String[]{"Nextfit","Firstfit","Bestfit","KorfBinCompletion"});
         algorithmSelector.setBounds(1040, 20, 110, 20);
         algorithmSelector.addActionListener(this);
         add(algorithmSelector);
@@ -175,22 +174,30 @@ class AlgorithmGUI extends JFrame implements ActionListener {
             if(selected.equals(NextFitAlgorithm.NAME)) {
                 List<Box> boxes = this.algorithm.getBoxes();
                 List<Container> containers = this.algorithm.getContainers();
+                System.out.println("NextFit" + containers);
+                System.out.println(containers.size());
+                this.panel.setContainers(containers);
                 this.algorithm = new NextFitAlgorithm(containers, boxes);
             }
             if(selected.equals(FirstFitAlgorithm.NAME)) {
                 List<Box> boxes = this.algorithm.getBoxes();
                 List<Container> containers = this.algorithm.getContainers();
+                System.out.println("FirstFit" + containers);
+                this.panel.setContainers(containers);
                 this.algorithm = new FirstFitAlgorithm(containers,boxes);
             }
             if(selected.equals(BestFitAlgorithm.NAME)) {
                 List<Box> boxes = this.algorithm.getBoxes();
                 List<Container> containers = this.algorithm.getContainers();
+                System.out.println("BestFit" + containers);
+                this.panel.setContainers(containers);
                 this.algorithm = new BestFitAlgorithm(containers,boxes);
             }
 
         }
 
         this.timeDisplay.setText(BPPTimer.getHumanReadableAverageTime(this.algorithm));
+
         repaint();
     }
 

@@ -7,7 +7,7 @@ public class Main {
         Random rand = new Random(5);
         List<Container> containers = new ArrayList<>();
         List<Box> boxes = new ArrayList<>();
-        for (int i = 0; i < 77; i++) {
+        for (int i = 0; i < 138; i++) {
             boxes.add(new Box(5 + rand.nextInt(95)));
         }
         new AlgorithmGUI(new FirstFitAlgorithm(containers, boxes));

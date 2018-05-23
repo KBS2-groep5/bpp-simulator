@@ -20,6 +20,7 @@ public class BestFitAlgorithm implements BPPAlgorithm {
         this.boxes = boxes;
     }
 
+
     public List<Container> solveSteps(int steps) {
         List<Container> solution = Stream.generate(Container::new).limit(this.containerCount).collect(Collectors.toList());
         int cursor = 0;
@@ -47,6 +48,8 @@ public class BestFitAlgorithm implements BPPAlgorithm {
             t = 0;
         }
         this.solveTime = System.nanoTime() - startTime;
+        this.containers = solution;
+        System.out.println(solution);
         return solution;
     }
 

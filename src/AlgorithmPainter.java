@@ -17,7 +17,8 @@ public class AlgorithmPainter extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.setColor(Color.BLACK);
-
+        System.out.println("Painting");
+        System.out.println(containers);
         int x = 0, y = 0;
         g.setFont(new Font("Arial", Font.PLAIN, 10));
         for (int i = 0; i < this.containers.size(); i++) {
@@ -64,10 +65,12 @@ public class AlgorithmPainter extends JPanel {
     }
 
     void setContainers(List<Container> containers) {
+        System.out.println("Updating containers");
         this.containers = containers;
     }
 
     void setBoxes(List<Box> boxes) {
+        System.out.println("Updating boxes");
         this.boxes = boxes;
     }
 }

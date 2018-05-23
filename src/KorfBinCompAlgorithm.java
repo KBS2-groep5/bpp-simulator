@@ -3,41 +3,53 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import java.lang.Math;
 
-public class NextFitAlgorithm implements BPPAlgorithm {
+public class KorfBinCompAlgorithm implements BPPAlgorithm {
     private List<Container> containers;
     private List<Box> boxes;
     private long solveTime = 0;
 
+    static final String NAME = "KorfBinCompletion";
 
-    private int containerCount = 1;
+    private int optimalContainers = 0;
+    private int optimalRest = 0;
+    private int totalBoxHeight = 0;
+    private int containerCount = 0;
 
-    static final String NAME = "Nextfit";
-
-
-    NextFitAlgorithm(List<Container> containers, List<Box> boxes) {
+    KorfBinCompAlgorithm(List<Container> containers, List<Box> boxes) {
         this.containers = containers;
         this.boxes = boxes;
-    }
 
-    public List<Container> solveSteps(int steps) {
-        List<Container> solution = Stream.generate(Container::new).limit(this.containerCount).collect(Collectors.toList());
-        int cursor = 0;
-        long startTime = System.nanoTime();
-        for (Box b : this.boxes) {
-            if (solution.get(cursor).getPercentageFilled() + b.getHeight() > 100) {
-                solution.add(new Container());
-                this.containerCount+=1;
-                cursor += 1;
-            }
-            solution.get(cursor).addBox(b);
+        //Determine goal for algorithm to achieve.
+        for(Box x : this.boxes){
+            this.totalBoxHeight+= x.getHeight();
         }
-        this.solveTime = System.nanoTime() - startTime;
-        this.containers = solution;
-        System.out.println(solution.size());
 
-        return solution;
+
+        this.optimalContainers = (this.totalBoxHeight / 100) +1;
+
+
+
     }
+
+    public List<Container> solveSteps(int steps){
+        List<Container> solution = Stream.generate(Container::new).limit(this.containerCount).collect(Collectors.toList());
+        long startTime = System.nanoTime();
+
+
+
+
+
+        this.solveTime = System.nanoTime() - startTime;
+        return solution;
+
+
+}
+
+
+
+
 
     public List<Container> getContainers() {
         return this.containers;
@@ -50,12 +62,13 @@ public class NextFitAlgorithm implements BPPAlgorithm {
     public void setContainers(List<Container> containers) {
         this.containers = containers;
     }
+
     public void setBoxes(List<Box> boxes) {
         this.boxes = boxes;
     }
 
     public int getContainerCount() {
-        return this.containerCount;
+        return this.containers.size();
     }
 
     public int getBoxCount() {

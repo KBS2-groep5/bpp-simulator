@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -27,11 +28,20 @@ public class FirstFitAlgorithm implements BPPAlgorithm {
         for (Box b : this.boxes) {
             while (solution.get(cursor).getPercentageFilled() + b.getHeight() > 100) {
                 cursor += 1;
+                if (cursor == containerCount){
+                    solution.add(new Container());
+                    this.containerCount+=1;
+                }
             }
-            solution.get(cursor).addBox(b);
+
+                solution.get(cursor).addBox(b);
+
             cursor = 0;
         }
+
         this.solveTime = System.nanoTime() - startTime;
+        this.containers = solution;
+        System.out.println(solution);
 
         return solution;
     }
@@ -53,7 +63,7 @@ public class FirstFitAlgorithm implements BPPAlgorithm {
     }
 
     public int getContainerCount() {
-        return this.containers.size();
+        return this.containerCount;
     }
 
     public int getBoxCount() {
