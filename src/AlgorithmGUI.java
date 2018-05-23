@@ -196,6 +196,7 @@ class AlgorithmGUI extends JFrame implements ActionListener {
             if(selected.equals(KorfBinCompAlgorithm.NAME)) {
                 List<Box> boxes = this.algorithm.getBoxes();
                 List<Container> containers = this.algorithm.getContainers();
+                System.out.println("KorfBinCompletion" + containers);
                 this.algorithm = new KorfBinCompAlgorithm(containers,boxes);
             }
 

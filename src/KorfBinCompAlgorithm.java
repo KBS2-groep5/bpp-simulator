@@ -27,15 +27,11 @@ public class KorfBinCompAlgorithm implements BPPAlgorithm {
 
     public List<Container> solveSteps(int steps){
         List<Container> startSolution;
-        List<Container> optimalArray;
         int startContainersCount;
         long startTime = System.nanoTime();
 
         //Order boxes by size.
         Collections.sort(boxes,(a,b) -> b.compareTo(a));
-
-        System.out.println("boxes sorted:" + boxes);
-
 
         // Innitial run of Best Fit as starting solution to be optimized.
         this.algorithmCall = new BestFitAlgorithm(this.containers,this.boxes);
@@ -44,18 +40,18 @@ public class KorfBinCompAlgorithm implements BPPAlgorithm {
 
         //Again to get a duplicate which i can safely chop up boxes in.
         this.optimalSolution = new BestFitAlgorithm(this.containers,this.boxes);
-        optimalArray = optimalSolution.getContainers();
-        optimalContainers = optimalArray.size();
-        System.out.println(" optimalArray: " + optimalArray); //TODO: remove this check
-        System.out.println("optimalcontainers: " + optimalContainers); //TODO: remove this check
+        List<Container> optimalArray = optimalSolution.getContainers();
+        this.optimalContainers = optimalArray.size();
 
         //Determine optimal containers to achieve with algorithm.(Boxes can be changed in height here)
-        for(int iSta = 0; iSta < optimalContainers-1; iSta++ ) {
+
+
+
+        for(int iSta = 0; iSta < 5-1; iSta++ ) {
 
             int iRest = 100 - optimalArray.get(iSta).getPercentageFilled();
             ArrayList<Box> altBoxes = new ArrayList<>();
             List<Box> restSolveList = new ArrayList<>();
-
 
             for (Container c : optimalArray) {
                 List<Box> cBoxes = c.getBoxes();
@@ -69,26 +65,35 @@ public class KorfBinCompAlgorithm implements BPPAlgorithm {
             if(altBoxes.size() > 0 && altBoxes.size() < 2){
                 restSolveList.add(altBoxes.get(0));
             } else if(altBoxes.size() > 2) {
-                for (int iAlt = altBoxes.size() - 1; iAlt > 0; iAlt--) {
-                    if (altBoxes.get(iAlt).getHeight() <= iRest) {
+                for (int iAlt = 0; iAlt < altBoxes.size() - 1; iAlt++) {
+                    if (altBoxes.get(iAlt).getHeight() < iRest) {
                         restSolveList.add(altBoxes.get(iAlt));
                         altBoxes.remove(altBoxes.get(iAlt));
                         iRest -= altBoxes.get(iAlt).getHeight();
-                    } else if (iRest > 0){
-                        int x = altBoxes.get(iAlt).getHeight()-iRest;
-                        int y = restSolveList.get(iAlt-1).getHeight() + iRest;
+                    }
+                    /*
+                    else if (iRest > 0) {
+                        int x = altBoxes.get(iAlt).getHeight() - iRest;
+                        int y = restSolveList.get(iAlt - 1).getHeight() + iRest;
                         altBoxes.get(iAlt).setHeight(x);
-                        restSolveList.get(iAlt-1).setHeight(y);
-                        iRest = 0;
+                        for (Container c : optimalArray) {
+                            List<Box> cBoxes = c.getBoxes();
+                            restSolveList.get(iAlt - 1).setHeight(y);
+                            iRest = 0;
+                        }
+                        */
                     }
                 }
             }
-            for(int iRL = 0; iRL < restSolveList.size(); ) {
-                Box bX = restSolveList.get(iRL);
-                for(Container c : optimalArray) {
-                    List<Box> cBoxes = c.getBoxes();
 
-                    for(Box b : cBoxes){
+
+        /*
+        for(int iRL = 0; iRL < restSolveList.size(); ) {
+            Box bX = restSolveList.get(iRL);
+
+                    for(Container c : optimalArray){
+                        List<Box> cBoxes = c.getBoxes();
+                        for(Box b : cBoxes)
                         if( b == bX ){
                             c.removeBox(bX);
                             optimalArray.get(iSta).addBox(bX);
@@ -96,7 +101,7 @@ public class KorfBinCompAlgorithm implements BPPAlgorithm {
                     }
                 }
             }
-        }
+
 
         for(Container cO : optimalArray){
             int fill = cO.getBoxes().size();
@@ -104,9 +109,13 @@ public class KorfBinCompAlgorithm implements BPPAlgorithm {
                 optimalArray.remove(cO);
             }
         }
+        */
 
 
         this.optimalContainers = optimalArray.size();
+        System.out.println("optimalContainers: " + optimalContainers);
+        System.out.println("Optimal Array: " + optimalArray);
+
 
 
         //Repetitive Best Fit runs to get optimal solution.
@@ -138,6 +147,7 @@ public class KorfBinCompAlgorithm implements BPPAlgorithm {
         }
 
         */
+
 
 
         this.solveTime = System.nanoTime() - startTime;
