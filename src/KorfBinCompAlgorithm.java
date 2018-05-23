@@ -8,6 +8,9 @@ import java.lang.Math;
 public class KorfBinCompAlgorithm implements BPPAlgorithm {
     private List<Container> containers;
     private List<Box> boxes;
+    private long solveTime = 0;
+
+    static final String NAME = "KorfBinCompletion";
 
     private int optimalContainers = 0;
     private int optimalRest = 0;
@@ -32,9 +35,17 @@ public class KorfBinCompAlgorithm implements BPPAlgorithm {
 
     public List<Container> solveSteps(int steps){
         List<Container> solution = Stream.generate(Container::new).limit(this.containerCount).collect(Collectors.toList());
+        long startTime = System.nanoTime();
 
+
+
+
+
+        this.solveTime = System.nanoTime() - startTime;
         return solution;
-    }
+
+
+}
 
 
 
@@ -62,5 +73,9 @@ public class KorfBinCompAlgorithm implements BPPAlgorithm {
 
     public int getBoxCount() {
         return this.boxes.size();
+    }
+
+    public long getSolveTime() {
+        return solveTime;
     }
 }
