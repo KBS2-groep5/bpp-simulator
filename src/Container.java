@@ -18,6 +18,8 @@ class Container {
         return this.boxes;
     }
 
+    Box getBox(int i){return this.boxes.get(i);}
+
     int getPercentageFilled() {
         int result = 0;
         for (Box b : this.boxes) {

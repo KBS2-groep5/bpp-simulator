@@ -47,21 +47,21 @@ public class KorfBinCompAlgorithm implements BPPAlgorithm {
 
         //TODO: set " 5 " to correct max.
 
-        for(int iSta = 0; iSta < 5-1; iSta++ ) {
+        for(int iSta = 0; iSta < optimalArray.size()-2; iSta++ ) {
 
             int iRest = 100 - optimalArray.get(iSta).getPercentageFilled();
             ArrayList<Box> altBoxes = new ArrayList<>();
             List<Box> restSolveList = new ArrayList<>();
 
-            for (Container c : optimalArray) {
-                List<Box> cBoxes = c.getBoxes();
-                for (Box b : cBoxes) {
-                    if (b.getHeight() < iRest) {
-                        altBoxes.add(b);
-                    }
+            List<Box> cOboxes = optimalArray.get(iSta+1).getBoxes();
+            for(int iOAC = 0; iOAC < cOboxes.size()-1; iOAC++){
+                int cBHeight = optimalArray.get(iSta+1).getBox(iOAC).getHeight();
+                if(cBHeight < iRest){
+                    altBoxes.add(optimalArray.get(iSta+1).getBox(iOAC));
                 }
             }
 
+            //Getting best solution out of possible boxes.
             if (altBoxes.size() > 0 && altBoxes.size() < 2) {
                 restSolveList.add(altBoxes.get(0));
             } else if (altBoxes.size() > 2) {
@@ -81,21 +81,10 @@ public class KorfBinCompAlgorithm implements BPPAlgorithm {
                 }
             }
 
-
-            for (int iRL = 0; iRL < restSolveList.size(); ) {
-                Box bX = restSolveList.get(iRL);
-
-                for (Container c : optimalArray) {
-                    List<Box> cBoxes = c.getBoxes();
-                    if (cBoxes.size() > 0) {
-                        for (Box b : cBoxes) {
-                            if (b == bX) {
-                                c.removeBox(bX);
-                                optimalArray.get(iSta).addBox(bX);
-                            }
-                        }
-                    }
-                }
+            //Rearranging optimalArray so that the solution gets implemented.
+            for (int iRL = 0; iRL < restSolveList.size()-1; iRL++) {
+                optimalArray.get(iSta).addBox(restSolveList.get(iRL));
+                optimalArray.get(iSta+1).removeBox(restSolveList.get(iRL));
             }
 
             //removing empty containers from OptimalArray.
