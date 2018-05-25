@@ -88,13 +88,8 @@ public class KorfBinCompAlgorithm implements BPPAlgorithm {
             //Getting best solution out of possible boxes.
             if (altBoxes.size() > 0 && altBoxes.size() < 2) {
                 restSolveList.add(altBoxes.get(0));
-                System.out.println("altboxes size = 1 test "); //TODO remove check
             } else if (altBoxes.size() > 2) {
-                System.out.println("altboxes size > 1 test "); //TODO: remove check
                 for (int iAlt = 0; iAlt < altBoxes.size(); iAlt++) {
-
-                    System.out.println("iALT = " + iAlt);
-
                     if (altBoxes.get(iAlt).getHeight() < iRest) {
                         restSolveList.add(altBoxes.get(iAlt));
                         iRest -= altBoxes.get(iAlt).getHeight();
@@ -154,13 +149,6 @@ public class KorfBinCompAlgorithm implements BPPAlgorithm {
         }
         this.optimalContainers = this.optimalArray.size();
 
-        System.out.println("OptimalArray after estimation runs   : " + this.optimalArray);
-
-        System.out.println("Workingsolution before best fit runs : " + workingSolution);
-
-        int tempTestInt = 0; //TODO: remove test int.
-
-
         //Repetitive Best Fit runs to get best solution.
         while (workingSolution.size() > optimalContainers) {
             //Consider each container for optimization -1 because the last container has no options for optimization.
@@ -206,7 +194,6 @@ public class KorfBinCompAlgorithm implements BPPAlgorithm {
                     itWrkFinal.remove();
                 }
             }
-            tempTestInt++; //TODO: remove temp int
         }
 
 
