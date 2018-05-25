@@ -5,13 +5,12 @@ import java.util.List;
 
 public class KorfBinCompAlgorithm implements BPPAlgorithm {
     private BPPAlgorithm algorithmCall; //for calling best fit in Korf's
-    private BPPAlgorithm optimalSolution;
     private List<Container> containers;
     private List<Box> boxes;
 
     private List<Container> startSolution;
     private int startContainersCount;
-    private List<Container> optimalArray;
+    private List<Container> optimalArray = new ArrayList<>();
     private int optimalContainers = 0;
     private List<Container> workingSolution;
 
@@ -37,8 +36,14 @@ public class KorfBinCompAlgorithm implements BPPAlgorithm {
         this.startContainersCount = startSolution.size();
 
         //Again to get a duplicate where i can safely chop-up boxes in.
-        this.optimalSolution = new BestFitAlgorithm(this.containers, this.boxes);
-        this.optimalArray = optimalSolution.getContainers();
+        for(Container c : startSolution){
+            this.optimalArray.add(new Container());
+
+            for(Box b : c.getBoxes()){
+                int h = b.getHeight();
+                this.optimalArray.get(optimalArray.size()-1).addBox(new Box(h));
+            }
+        }
         this.optimalContainers = optimalArray.size();
 
         //removing empty containers:
@@ -83,19 +88,25 @@ public class KorfBinCompAlgorithm implements BPPAlgorithm {
             //Getting best solution out of possible boxes.
             if (altBoxes.size() > 0 && altBoxes.size() < 2) {
                 restSolveList.add(altBoxes.get(0));
+                System.out.println("altboxes size = 1 test "); //TODO remove check
             } else if (altBoxes.size() > 2) {
+                System.out.println("altboxes size > 1 test "); //TODO: remove check
                 for (int iAlt = 0; iAlt < altBoxes.size(); iAlt++) {
+
+                    System.out.println("iALT = " + iAlt);
+
                     if (altBoxes.get(iAlt).getHeight() < iRest) {
                         restSolveList.add(altBoxes.get(iAlt));
                         iRest -= altBoxes.get(iAlt).getHeight();
-                    } else if (iRest > 0 && restSolveList.size() > 1 && altBoxes.size() > 1 && restSolveList != null && iAlt > 0) {
+                    }
+                    else if (iRest >= 1 && restSolveList.size() > 1 && altBoxes.size() > 1 && restSolveList != null && iAlt >= 1) {
+                        int rSLindex = restSolveList.size()-1;
                         int x = altBoxes.get(iAlt).getHeight() - iRest;
-                        int y = restSolveList.get(iAlt - 1).getHeight() + iRest;
+                        int y = restSolveList.get(rSLindex).getHeight() + iRest;
                         altBoxes.get(iAlt).setHeight(x);
-                        restSolveList.get(iAlt - 1).setHeight(y);
+                        restSolveList.get(rSLindex).setHeight(y);
                         iRest = 0;
                     }
-
                 }
             }
 
@@ -126,7 +137,6 @@ public class KorfBinCompAlgorithm implements BPPAlgorithm {
                             }
                         }
                     }
-                    System.out.println(" restsolve.indes : " + restSolveList.get(resolveIndex));
                     this.optimalArray.get(iSta).addBox(restSolveList.get(resolveIndex));
                     resolveIndex++;
                 }
@@ -144,47 +154,59 @@ public class KorfBinCompAlgorithm implements BPPAlgorithm {
         }
         this.optimalContainers = this.optimalArray.size();
 
+        System.out.println("OptimalArray after estimation runs   : " + this.optimalArray);
+
+        System.out.println("Workingsolution before best fit runs : " + workingSolution);
+
+        int tempTestInt = 0; //TODO: remove test int.
+
 
         //Repetitive Best Fit runs to get best solution.
         while (workingSolution.size() > optimalContainers) {
-            int workingSolSize = workingSolution.size();
+            //Consider each container for optimization -1 because the last container has no options for optimization.
+            int WSolContInd = 0;
+            while(WSolContInd < workingSolution.size()-1){
 
-            // -2 because the last container has no options for optimization.
-            for (int iCS = 0; iCS < workingSolSize - 2; iCS++) {
-
-                int currentRest = 100 - workingSolution.get(iCS).getPercentageFilled();
-                int containerExchangeIndex = -1;
+                int currentRest = 100-workingSolution.get(WSolContInd).getPercentageFilled();
 
                 Iterator<Container> itWSolution = workingSolution.iterator();
 
-                int WSolContInd = iCS;
-
+                //Iterate through containers.
                 while (itWSolution.hasNext()) {
 
-                    Container WSCont = workingSolution.get(WSolContInd);
+                    Container WSCont = itWSolution.next();
 
-                    Iterator<Box> itWScontBoxes = WSCont.getBoxes().iterator();
+                    if(WSCont != workingSolution.get(WSolContInd)) {
+                        Box wBox = workingSolution.get(WSolContInd).getBox(0);
 
-                    while (itWScontBoxes.hasNext()) {
-                        if (itWScontBoxes.next().getHeight() <= currentRest) {
-                            workingSolution.get(iCS).addBox(itWScontBoxes.next());
-                            itWSolution.next().removeBox(itWScontBoxes.next());
+                        for(Box b : WSCont.getBoxes()){
+                            if(wBox == workingSolution.get(WSolContInd).getBox(0) && b.getHeight() <=currentRest){
+                                wBox = b;
+                            }else if(wBox != workingSolution.get(WSolContInd).getBox(0) && b.getHeight() > wBox.getHeight() && b.getHeight() <= currentRest){
+                                wBox = b;
+                            }
                         }
 
-                    }
-
-                    WSolContInd++;
-                }
-                //removing empty containers from workingSolution.
-                Iterator<Container> itWrkFinal = workingSolution.iterator();
-
-                while (itWrkFinal.hasNext()) {
-                    if (itWrkFinal.next().getPercentageFilled() < 1) {
-                        itWrkFinal.remove();
+                        if(wBox != workingSolution.get(WSolContInd).getBox(0)){
+                            workingSolution.get(WSolContInd).addBox(wBox);
+                            currentRest = 100 - workingSolution.get(WSolContInd).getPercentageFilled();
+                            WSCont.removeBox(wBox);
+                        }
                     }
                 }
 
+
+                WSolContInd++;
             }
+            //removing empty containers from workingSolution.
+            Iterator<Container> itWrkFinal = workingSolution.iterator();
+
+            while (itWrkFinal.hasNext()) {
+                if (itWrkFinal.next().getPercentageFilled() < 1) {
+                    itWrkFinal.remove();
+                }
+            }
+            tempTestInt++; //TODO: remove temp int
         }
 
 
