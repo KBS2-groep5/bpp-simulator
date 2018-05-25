@@ -84,11 +84,11 @@ public class KorfBinCompAlgorithm implements BPPAlgorithm {
             if (altBoxes.size() > 0 && altBoxes.size() < 2) {
                 restSolveList.add(altBoxes.get(0));
             } else if (altBoxes.size() > 2) {
-                for (int iAlt = 0; iAlt < altBoxes.size() - 1; iAlt++) {
+                for (int iAlt = 0; iAlt < altBoxes.size(); iAlt++) {
                     if (altBoxes.get(iAlt).getHeight() < iRest) {
                         restSolveList.add(altBoxes.get(iAlt));
                         iRest -= altBoxes.get(iAlt).getHeight();
-                    } else if (iRest > 0 && restSolveList.size() > 0 && altBoxes.size() > 0) {
+                    } else if (iRest > 0 && restSolveList.size() > 1 && altBoxes.size() > 1 && restSolveList != null && iAlt > 0) {
                         int x = altBoxes.get(iAlt).getHeight() - iRest;
                         int y = restSolveList.get(iAlt - 1).getHeight() + iRest;
                         altBoxes.get(iAlt).setHeight(x);
@@ -100,7 +100,7 @@ public class KorfBinCompAlgorithm implements BPPAlgorithm {
             }
 
             //Rearranging optimalArray so that the optimalSolution gets implemented.
-            if (restSolveList.size() > 0 && restSolveList != null) {
+            if (restSolveList.size() > 0) {
                 Box y = optimalArray.get(0).getBox(0);
                 int resolveIndex = 0;
                 Box sbox = restSolveList.get(resolveIndex);
@@ -189,6 +189,8 @@ public class KorfBinCompAlgorithm implements BPPAlgorithm {
 
 
         this.solveTime = System.nanoTime() - startTime;
+        this.containers = workingSolution;
+        System.out.println(workingSolution);
         return workingSolution;
 
 
