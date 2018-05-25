@@ -67,53 +67,21 @@ class AlgorithmGUI extends JFrame implements ActionListener {
         add(boxCountInput);
         boxCountInput.addActionListener(this);
 
-        JLabel stepButtonsLabel = new JLabel("Stap voor stap:");
-        stepButtonsLabel.setBounds(900, 110, 120, 20);
-        add(stepButtonsLabel);
-
-        previousButton = new JButton("<--");
-        ImageIcon previousIcon = loadIcon("back.png");
-        if (previousIcon != null) {
-            previousButton.setText("");
-            previousButton.setIcon(previousIcon);
-        }
-        previousButton.setBounds(1040, 110, 50, 20);
-        add(previousButton);
-        previousButton.addActionListener(this);
-
-        nextButton = new JButton("-->");
-        ImageIcon nextIcon = loadIcon("next.png");
-        if (nextIcon != null) {
-            nextButton.setText("");
-            nextButton.setIcon(nextIcon);
-        }
-        nextButton.setBounds(1100, 110, 50, 20);
-        add(nextButton);
-        nextButton.addActionListener(this);
-
-        JLabel cursorLabel = new JLabel("Aantal stappen:");
-        cursorLabel.setBounds(900, 140, 120, 20);
-        add(cursorLabel);
-
-        cursorDisplay = new JLabel("" + this.cursor);
-        cursorDisplay.setBounds(1040, 140, 120, 20);
-        add(cursorDisplay);
-
         JLabel solveFullyLabel = new JLabel("Algoritme starten");
-        solveFullyLabel.setBounds(900, 170, 120, 20);
+        solveFullyLabel.setBounds(900, 110, 120, 20);
         add(solveFullyLabel);
 
         solveFullyButton = new JButton("Start");
-        solveFullyButton.setBounds(1040, 170, 110, 20);
+        solveFullyButton.setBounds(1040, 110, 110, 20);
         add(solveFullyButton);
         solveFullyButton.addActionListener(this);
 
         JLabel timeLabel = new JLabel("Tijd:");
-        timeLabel.setBounds(900, 200, 120, 20);
+        timeLabel.setBounds(900, 140, 120, 20);
         add(timeLabel);
 
         timeDisplay = new JLabel(BPPTimer.getHumanReadableAverageTime(this.algorithm));
-        timeDisplay.setBounds(1040, 200, 120, 20);
+        timeDisplay.setBounds(1040, 140, 120, 20);
         add(timeDisplay);
 
 
