@@ -44,7 +44,7 @@ class AlgorithmGUI extends JFrame implements ActionListener {
         algorithmSelectorLabel.setBounds(900, 20, 120, 20);
         add(algorithmSelectorLabel);
 
-        algorithmSelector = new JComboBox<>(new String[]{"Nextfit","Firstfit","Bestfit","KorfBinCompletion"});
+        algorithmSelector = new JComboBox<>(new String[]{"Nextfit","Firstfit","Bestfit","KorfBinCompletion","BlackSun"});
         algorithmSelector.setBounds(1040, 20, 110, 20);
         algorithmSelector.addActionListener(this);
         add(algorithmSelector);
@@ -199,6 +199,13 @@ class AlgorithmGUI extends JFrame implements ActionListener {
                 System.out.println("KorfBinCompletion" + containers);
                 this.panel.setContainers(containers);
                 this.algorithm = new KorfBinCompAlgorithm(containers,boxes);
+            }
+            if(selected.equals(BlackSunAlgorithm.NAME)) {
+                List<Box> boxes = this.algorithm.getBoxes();
+                List<Container> containers = this.algorithm.getContainers();
+                System.out.println("BlackSun" + containers);
+                this.panel.setContainers(containers);
+                this.algorithm = new BlackSunAlgorithm(containers,boxes);
             }
 
         }
