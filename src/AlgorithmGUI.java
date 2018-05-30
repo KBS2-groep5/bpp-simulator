@@ -67,6 +67,14 @@ class AlgorithmGUI extends JFrame implements ActionListener {
         add(boxCountInput);
         boxCountInput.addActionListener(this);
 
+        JLabel stepLabel = new JLabel("Aantal Stappen:");
+        stepLabel.setBounds(900, 140, 120, 20);
+        add(stepLabel);
+
+        cursorDisplay = new JLabel("" + this.cursor);
+        cursorDisplay.setBounds(1040, 140, 120, 20);
+        add(cursorDisplay);
+
         JLabel solveFullyLabel = new JLabel("Algoritme starten");
         solveFullyLabel.setBounds(900, 110, 120, 20);
         add(solveFullyLabel);
@@ -77,11 +85,11 @@ class AlgorithmGUI extends JFrame implements ActionListener {
         solveFullyButton.addActionListener(this);
 
         JLabel timeLabel = new JLabel("Tijd:");
-        timeLabel.setBounds(900, 140, 120, 20);
+        timeLabel.setBounds(900, 170, 120, 20);
         add(timeLabel);
 
         timeDisplay = new JLabel(BPPTimer.getHumanReadableAverageTime(this.algorithm));
-        timeDisplay.setBounds(1040, 140, 120, 20);
+        timeDisplay.setBounds(1040, 170, 120, 20);
         add(timeDisplay);
 
 
